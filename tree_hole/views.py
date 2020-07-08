@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 
+
 # Create your views here.
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -7,5 +8,6 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['test'] = 'Hello World'
-        print(self.request)
+        context['user'] = self.request.user.username
+        print(self.request.GET)
         return context

@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'jquery-1.12.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button id="test" class="btn btn-primary">Ajax</button>
+    <input type="submit" value="Update">
+</form>
+<script type="text/javascript">
+    $("#test").click(function () {
+        $.ajax({
+            url: "{% url 'ajax_json' %}",
+            type: "GET",
+            cache: false,
+            success: function (data) {
+                console.log(data['status']);
+            }
+        })
+        return false;
+    });
+</script>
+</body>
+</html>

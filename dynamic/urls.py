@@ -13,12 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import include, path
-from .views import HomeView
+from django.urls import path
+from .views import DynamicUpdate, DynamicCreate, AjaxUpdate
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', HomeView.as_view(), name='home'),
-    path('dynamic/', include('dynamic.urls')),
+    path('dynamic_update_form/<int:pk>', DynamicUpdate.as_view(), name='dynamic_update_form'),
+    path('dynamic_create_form', DynamicCreate.as_view(), name='dynamic_create_form'),
+    path('ajax_json', AjaxUpdate.as_view(), name='ajax_json'),
 ]
