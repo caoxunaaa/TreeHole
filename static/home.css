@@ -1,0 +1,17 @@
+.main-content {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	color: #f9f1e9;
+	text-align: center;
+	top: 15%;
+	left: 15%;
+	-webkit-transform: translate3d(-50%,-50%,0);
+	transform: translate3d(-50%,-50%,0);
+}
+
+.main-content {
+    text-transform: uppercase;
+	font-size: 4.2em;
+	letter-spacing: 0.1em;
+}

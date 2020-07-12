@@ -5,52 +5,61 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>树洞首页</title>
+    <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}">
     <script type="text/javascript" src="{% static 'jquery-1.12.4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'jquery-backcanvas/css/normalize.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'jquery-backcanvas/css/demo.css' %}"/>
-    <!--必要样式-->
-    <link rel="stylesheet" type="text/css" href="{% static 'jquery-backcanvas/css/component.css' %}"/>
+    {% block extend-jquery-file %}{% endblock %}
 </head>
 
 <body>
-<div class="container demo-1">
-    <div class="content">
-        <div id="large-header" class="large-header">
-            <canvas id="demo-canvas"></canvas>
-            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" >个人博客网站</a>
-                        <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div id="navbar-collapse" class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav pull-right">
-                            <li>
-                                首页
-                            </li>
-                            <li>博客
-                            </li>
-                        </ul>
-                    </div>
+    <div class="container demo-1">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">树洞</a>
                 </div>
-            </div>
-            <h1 class="main-title">Connect <span class="thin">Three</span></h1>
 
-        </div>
-    </div>
-</div><!-- /container -->
-
-<script src="{% static 'jquery-backcanvas/js/TweenLite.min.js' %}"></script>
-<script src="{% static 'jquery-backcanvas/js/EasePack.min.js' %}"></script>
-<script src="{% static 'jquery-backcanvas/js/rAF.js' %}"></script>
-<script src="{% static 'jquery-backcanvas/js/demo-1.js' %}"></script>
-
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'home' %}">首页</a></li>
+                        <li><a href="{% url 'dynamics' %}">动态墙</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        {% block main-content %}{% endblock %}
+    </div><!-- /container -->
+    {% block script-extend %}{% endblock %}
 </body>
 </html>

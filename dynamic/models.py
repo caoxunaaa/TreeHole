@@ -17,7 +17,13 @@ class Dynamic(models.Model):
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     update_time = models.DateTimeField(verbose_name='更新时间', auto_now=True)
 
+    is_public = models.BooleanField(verbose_name='是否公开', default=True)
+    is_delete = models.BooleanField(verbose_name='已删除', default=False)
+
     def __str__(self):
+        return self.text[:10]
+
+    def get_text(self):
         return self.text[:10]
 
     class Meta:

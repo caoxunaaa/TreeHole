@@ -1,1 +1,29 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block title %}树洞首页{% endblock %}
+
+{% block extend-jquery-file %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'jquery-backcanvas/css/normalize.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'jquery-backcanvas/css/demo.css' %}"/>
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="{% static 'jquery-backcanvas/css/component.css' %}"/>
+{% endblock %}
+
+{% block main-content %}
+    <div class="content">
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas"></canvas>
+            <div class="main-content">
+                <p>12312414</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script-extend %}
+    <script src="{% static 'jquery-backcanvas/js/TweenLite.min.js' %}"></script>
+    <script src="{% static 'jquery-backcanvas/js/EasePack.min.js' %}"></script>
+    <script src="{% static 'jquery-backcanvas/js/rAF.js' %}"></script>
+    <script src="{% static 'jquery-backcanvas/js/demo-1.js' %}"></script>
+{% endblock %}

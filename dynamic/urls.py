@@ -14,10 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import DynamicUpdate, DynamicCreate, AjaxUpdate
+from .views import DynamicTemplate
 
 urlpatterns = [
-    path('dynamic_update_form/<int:pk>', DynamicUpdate.as_view(), name='dynamic_update_form'),
-    path('dynamic_create_form', DynamicCreate.as_view(), name='dynamic_create_form'),
-    path('ajax_json', AjaxUpdate.as_view(), name='ajax_json'),
+    path('dynamics', DynamicTemplate.as_view(), name='dynamics'),
 ]
