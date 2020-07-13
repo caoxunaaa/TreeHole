@@ -18,4 +18,5 @@ from .views import DynamicTemplate
 
 urlpatterns = [
     path('dynamics', DynamicTemplate.as_view(), name='dynamics'),
+
 ]
