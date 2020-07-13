@@ -129,3 +129,4 @@ STATIC_URL = '/tre_hole/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'tree_hole/static/'),
 ]
+LOGIN_REDIRECT_URL = '/'

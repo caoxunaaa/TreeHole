@@ -1,18 +1,13 @@
-from django.shortcuts import render, redirect
-from django.views import View
+from django.contrib.auth.views import LoginView, LogoutView
 from .forms import LoginForm
-from django.contrib import auth
 
-class Login(View):
-    def get(self, request):
-        context = dict()
-        loginform = LoginForm()
-        context['form'] = loginform
-        return render(request, 'user/login.html', context)
 
-    def post(self, request):
-        loginform = LoginForm(request.POST)
-        auth.login(request, user)
+class Login(LoginView):
+    template_name = 'user/login.html'
+    form_class = LoginForm
 
-# class Register(CreateView):
-#     pass
+
+class Logout(LogoutView):
+    pass
+
+
