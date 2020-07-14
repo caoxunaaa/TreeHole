@@ -59,7 +59,7 @@
                                 <li><a href="#">个人资料</a></li>
                                 <li><a href="#">修改密码</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="{% url 'logout' %}?next={{ request.get_full_path }}">退出</a></li>
+                                <li><a href="{% url 'logout' %}?next={% url 'home' %}">退出</a></li>
                             </ul>
                         </li>
                     {% endif %}

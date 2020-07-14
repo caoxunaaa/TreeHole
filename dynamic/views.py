@@ -24,7 +24,7 @@ def paginator_handle(request, context):
 
 class Dynamics(ListView):
     template_name = 'dynamic/dynamics.html'
-    context_object_name = 'my_dynamic_list'
+    context_object_name = 'dynamic_list'
     paginate_by = 5
     allow_empty = True
 
