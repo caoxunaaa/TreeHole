@@ -1,4 +1,4 @@
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, DetailView
 from .models import Dynamic
 
 
@@ -22,8 +22,8 @@ def paginator_handle(request, context):
     return context
 
 
-class Dynamics(ListView):
-    template_name = 'dynamic/dynamics.html'
+class DynamicsList(ListView):
+    template_name = 'dynamic/dynamics_list.html'
     context_object_name = 'dynamic_list'
     paginate_by = 5
     allow_empty = True
@@ -36,9 +36,9 @@ class Dynamics(ListView):
         return paginator_handle(self.request, context)
 
 
-class MyDynamics(ListView):
-    template_name = 'dynamic/my_dynamics_list.html'
-    context_object_name = 'my_dynamic_list'
+class MyDynamicsList(ListView):
+    template_name = 'dynamic/dynamics_list.html'
+    context_object_name = 'dynamic_list'
     paginate_by = 5
     allow_empty = True
 
@@ -48,3 +48,7 @@ class MyDynamics(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return paginator_handle(self.request, context)
+
+
+class DynamicDetail(DetailView):
+    template_name = 'dynamic/dynamic_detail.html'
