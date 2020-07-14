@@ -11,6 +11,12 @@ class Login(LoginView):
     template_name = 'user/login.html'
     form_class = LoginForm
 
+    def get_success_url(self):
+        if '?next=' not in self.request.GET.get('next', ''):
+            return self.request.GET.get('next', reverse('home'))
+        else:
+            return reverse('home')
+
 
 class Logout(LogoutView):
     pass
@@ -19,7 +25,6 @@ class Logout(LogoutView):
 class Register(CreateView):
     form_class = RegisterForm
     template_name = 'user/register.html'
-    success_url = 'login'
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
@@ -30,7 +35,9 @@ class Register(CreateView):
 
         user = auth.authenticate(username=username, password=password)
         auth.login(self.request, user)
-        return redirect(self.request.GET.get('next', reverse('home')))
-
+        if '?next=' not in self.request.GET.get('next', ''):
+            return redirect(self.request.GET.get('next', reverse('home')))
+        else:
+            return redirect(reverse('home'))
 
 
