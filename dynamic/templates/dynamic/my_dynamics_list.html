@@ -16,7 +16,7 @@
                             <h3 class="panel-title">{{ dynamic.owner.username }}: {{ dynamic.update_time }}</h3>
                         </div>
                         <div class="panel-body">
-                            <div>{{ dynamic.text }}</div>
+                            <div>{{ dynamic.text|truncatechars_html:20 }}</div>
                         </div>
                     </div>
                 {% endfor %}
