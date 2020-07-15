@@ -15,27 +15,21 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">{{ dynamic.owner.username }}: {{ dynamic.update_time }}</h3>
                         </div>
-                        {% if dynamic.text|length > 20 %}
-                            <div class="panel-body">
-                                {{ dynamic.text|truncatechars_html:20 }}...
-                            </div>
-                            <div class="panel-footer">
-                                <div class="foot" onclick="unfold()">展开</div>
-                            </div>
-                        {% else %}
-                            <div class="panel-body">
-                                <div>{{ dynamic.text}}</div>
-                            </div>
-                        {% endif %}
+                        <div class="panel-body" id="example">
+                            {{ dynamic.text }}
+                        </div>
+                        <div class="panel-footer">
+                            <div id="unfold" onclick="unfold(this)">展开</div>
+                        </div>
                     </div>
                 {% endfor %}
                 <nav aria-label="Page navigation" style="text-align: center">
                     <ul class="pagination">
                         <li>
                             {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
+                                <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
                             {% endif %}
                         </li>
                         {% for page_num in page_range %}
@@ -43,9 +37,9 @@
                         {% endfor %}
                         <li>
                             {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
+                                <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
                             {% endif %}
                         </li>
                     </ul>
@@ -58,4 +52,18 @@
 {% endblock %}
 
 {% block script-extend %}
+    <script>
+        function unfold(obj) {
+            if (obj.innerHTML==='展开'){
+                var ele = document.getElementById("example");
+                ele.style.cssText = "white-space: inherit";
+                obj.innerHTML = '收起';
+            }
+            else {
+                var ele = document.getElementById("example");
+                ele.style.cssText = "overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"
+                obj.innerHTML = '展开';
+            }
+        }
+    </script>
 {% endblock %}
