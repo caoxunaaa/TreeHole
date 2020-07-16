@@ -16,7 +16,7 @@
                             <h3 class="panel-title">{{ dynamic.owner.username }}: {{ dynamic.update_time }}</h3>
                         </div>
                         <div class="panel-body">
-                            <div>{{ dynamic.text|truncatechars_html:20}}</div>
+                            <div>{{ dynamic.text|truncatechars_html:20 }}</div>
                         </div>
                     </div>
                 {% endfor %}
@@ -24,9 +24,9 @@
                     <ul class="pagination">
                         <li>
                             {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
+                                <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
                             {% endif %}
                         </li>
                         {% for page_num in page_range %}
@@ -34,9 +34,9 @@
                         {% endfor %}
                         <li>
                             {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
+                                <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
                             {% endif %}
                         </li>
                     </ul>

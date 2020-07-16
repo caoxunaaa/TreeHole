@@ -1,0 +1,4 @@
+{% extends 'dynamic/dynamics_list.html' %}
+{% load static %}
+{% block owner-delete %}<a href="{% url 'dynamic_delete' %}?delete={{ dynamic.pk }}&from={{ request.get_full_path }}" class="pull-right">删除</a>{% endblock %}
+

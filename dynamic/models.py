@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 
 
 class DynamicType(models.Model):
-    type_name = models.CharField(verbose_name='类型名称', max_length=10)
+    type_name = models.CharField(verbose_name='类型名称', max_length=10, default='心情')
+    mood_type = models.CharField(verbose_name='心情类型', max_length=10, blank=True, null=True)
 
     def __str__(self):
         return self.type_name

@@ -1,5 +1,7 @@
 from django.views.generic import ListView, DetailView
+from django.views import View
 from .models import Dynamic
+from django.shortcuts import redirect, reverse
 
 
 def paginator_handle(request, context):
@@ -37,13 +39,13 @@ class DynamicsList(ListView):
 
 
 class MyDynamicsList(ListView):
-    template_name = 'dynamic/dynamics_list.html'
+    template_name = 'dynamic/my_dynamics_list.html'
     context_object_name = 'dynamic_list'
     paginate_by = 5
     allow_empty = True
 
     def get_queryset(self):
-        return Dynamic.objects.filter(owner=self.request.user)
+        return Dynamic.objects.filter(owner=self.request.user, is_delete=False)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,3 +54,16 @@ class MyDynamicsList(ListView):
 
 class DynamicDetail(DetailView):
     template_name = 'dynamic/dynamic_detail.html'
+
+
+class DynamicDelete(View):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            pk = request.GET.get('delete', 0)
+            dynamic = Dynamic.objects.get(pk=pk)
+            if request.user == dynamic.owner:
+                dynamic.is_delete = True
+                dynamic.save()
+                return redirect(request.GET.get('from', reverse('home')))
+        else:
+            return redirect(reverse('home'))

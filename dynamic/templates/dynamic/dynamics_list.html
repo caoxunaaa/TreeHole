@@ -1,65 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}个人动态{% endblock %}
+{% block title %}动态墙{% endblock %}
 {% block extend-jquery-file %}
     <link rel="stylesheet" href="{% static 'dynamic/dynamics.css' %}">
+    <link rel="stylesheet" href="{% static 'time-line/css/reset.css' %}"/>
+    <link rel="stylesheet" href="{% static 'time-line/css/timeline.css' %}">
+    <script src="{% static 'time-line/js/timeline.js' %}"></script>
 {% endblock %}
 
 {% block main-content %}
-    <div class="container-fluid" style="margin-top: 2em">
-        <div class="row">
-            <div class="col-md-6  col-md-offset-2">
-                {% for dynamic in dynamic_list %}
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{ dynamic.owner.username }}: {{ dynamic.update_time }}</h3>
-                        </div>
-                        <div class="panel-body" id="example">
-                            {{ dynamic.text }}
-                        </div>
-                        <div class="panel-footer">
-                            <div id="unfold" onclick="unfold(this)">展开</div>
-                        </div>
-                    </div>
-                {% endfor %}
-                <nav aria-label="Page navigation" style="text-align: center">
-                    <ul class="pagination">
-                        <li>
-                            {% if page_obj.has_previous %}
-                                <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            {% endif %}
-                        </li>
-                        {% for page_num in page_range %}
-                            <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
-                        {% endfor %}
-                        <li>
-                            {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-4">.col-md-2</div>
-        </div>
-    </div>
 
+    <div class="container">
+        <ul id="timeline" class="timeline">
+            {% for dynamic in dynamic_list %}
+                <li>
+                    <div class="check">
+                        <b class="spring"></b>
+                        <s></s>
+                        <b class="line"></b>
+                    </div>
+                    <div class="thumb">
+                        <img src="{% static 'time-line/images/pic/top1.jpg' %}" alt="">
+                        <span >{{ dynamic.update_time | date:"Y-m-d H:i:s" }}</span>
+                    </div>
+                    <div class="content">
+                        <b></b>
+                        <h3>{{ dynamic.type.type_name }}</h3>
+                        <p id="example">{{ dynamic.text }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 
 {% block script-extend %}
     <script>
+        $("#timeline li:first").addClass("active");
         function unfold(obj) {
-            if (obj.innerHTML==='展开'){
+            if (obj.innerHTML === '展开') {
                 var ele = document.getElementById("example");
                 ele.style.cssText = "white-space: inherit";
                 obj.innerHTML = '收起';
-            }
-            else {
+            } else {
                 var ele = document.getElementById("example");
                 ele.style.cssText = "overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"
                 obj.innerHTML = '展开';
