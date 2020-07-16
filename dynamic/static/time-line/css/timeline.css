@@ -1,4 +1,4 @@
-html,body {
+html {
 	background: #c2edf4;
 }
 
@@ -10,7 +10,7 @@ html,body {
 
 /* 默认样式 */
 .timeline li {
-	height: 160px;
+	height: 100px;
 	position: relative;
 }
 
@@ -102,7 +102,7 @@ html,body {
 
 /* 高亮样式 */
 .timeline li.active {
-	height: 230px;
+	height: 180px;
 }
 
 .timeline li.active div {
