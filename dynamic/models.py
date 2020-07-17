@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 class DynamicType(models.Model):
@@ -12,7 +13,7 @@ class DynamicType(models.Model):
 
 class Dynamic(models.Model):
     owner = models.ForeignKey(User, verbose_name='发起人', on_delete=models.CASCADE)
-    text = models.TextField(verbose_name='正文')
+    text = RichTextField(verbose_name='正文')
     type = models.ForeignKey(DynamicType, verbose_name='标签', on_delete=models.CASCADE)
 
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)

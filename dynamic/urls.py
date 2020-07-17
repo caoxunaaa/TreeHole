@@ -14,11 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import DynamicsList, MyDynamicsList, DynamicDetail, DynamicDelete
+from .views import DynamicsList, MyDynamicsList, DynamicDelete, DynamicCreate
 
 urlpatterns = [
     path('', DynamicsList.as_view(), name='dynamics'),
     path('my_dynamics_list', MyDynamicsList.as_view(), name='my_dynamics_list'),
-    # path('dynamic_detail/<int:pk>', DynamicDetail.as_view(), name='dynamic_detail'),
     path('dynamic_delete', DynamicDelete.as_view(), name='dynamic_delete'),
+    path('dynamic_create', DynamicCreate.as_view(), name='dynamic_create'),
 ]

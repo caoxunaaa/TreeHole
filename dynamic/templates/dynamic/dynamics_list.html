@@ -26,7 +26,7 @@
                     </div>
                     <div class="content">
                         <b></b>
-                        <h3>{{ dynamic.type.type_name }}</h3>
+                        <h3>{{ dynamic.type.type_name }}{% block owner-delete %}{% endblock %}</h3>
                         <p id="example">{{ dynamic.text }}</p>
                     </div>
                 </li>

@@ -1,7 +1,9 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.views import View
-from .models import Dynamic
+from .models import Dynamic, DynamicType
 from django.shortcuts import redirect, reverse
+from .forms import DynamicCreateForm
+from django.contrib.auth.models import User
 
 
 def paginator_handle(request, context):
@@ -65,5 +67,30 @@ class DynamicDelete(View):
                 dynamic.is_delete = True
                 dynamic.save()
                 return redirect(request.GET.get('from', reverse('home')))
+        else:
+            return redirect(reverse('home'))
+
+
+class DynamicCreate(CreateView):
+    model = Dynamic
+    template_name = 'dynamic/dynamic_create.html'
+    fields = ['owner', 'text']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['dynamic_types'] = DynamicType.objects.all()
+        return context
+
+    def form_valid(self, form):
+        print(self.request)
+        if '?next=' not in self.request.GET.get('next', ''):
+            return redirect(self.request.GET.get('next', reverse('home')))
+        else:
+            return redirect(reverse('home'))
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        if '?next=' not in self.request.POST.get('next', ''):
+            return redirect(self.request.POST.get('next', reverse('home')))
         else:
             return redirect(reverse('home'))
