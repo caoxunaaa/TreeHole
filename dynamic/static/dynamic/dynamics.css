@@ -14,3 +14,8 @@ div#unfold {
 /*    white-space: nowrap;*/
 /*    font-size: 10px;*/
 /*}*/
+
+div.django-ckeditor-widget {
+    display: inline-block;
+    width: 100%;
+}
