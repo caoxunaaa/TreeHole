@@ -74,19 +74,30 @@ class DynamicDelete(View):
 class DynamicCreate(CreateView):
     model = Dynamic
     template_name = 'dynamic/dynamic_create.html'
-    fields = ['owner', 'text']
+    form_class = DynamicCreateForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['dynamic_types'] = DynamicType.objects.all()
+        context['dynamic_types'] = DynamicType.objects.values("type_name").distinct()
         return context
 
     def post(self, request, *args, **kwargs):
         print(request.POST)
+        if self.request.user.is_authenticated:
+            user = self.request.user
+            type = self.request.POST.get('dynamic_type', '')
+            text = self.request.POST.get('text', '')
+            is_public = self.request.POST.get('is_public', '')
 
+            dynamic = Dynamic()
+            dynamic.owner = user
+            dynamic.type = DynamicType.objects.filter(type_name=type).first()
+            dynamic.text = text
+            dynamic.is_public = True if is_public == 'True' else False
+            dynamic.save()
 
         # 判断有没有多重next
-        if '?next=' not in self.request.POST.get('next', ''):
-            return redirect(self.request.POST.get('next', reverse('home')))
+        if '?next=' not in self.request.GET.get('next', ''):
+            return redirect(self.request.GET.get('next', reverse('home')))
         else:
             return redirect(reverse('home'))

@@ -7,9 +7,10 @@ div#unfold {
     font-size: 12px;
 }
 
-p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 10px;
-}
+/*省略*/
+/*p {*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
+/*    font-size: 10px;*/
+/*}*/

@@ -26,8 +26,9 @@
                     <div class="content">
                         <b></b>
                         <h3>{{ dynamic.type.type_name }}{% block owner-delete %}{% endblock %}</h3>
-                        <p id="dynamic{{ dynamic.pk }}">{{ dynamic.text }}<a class="pull-right"
-                                                                             onclick="unfold(this, 'dynamic{{ dynamic.pk }}')">展开</a>
+                        <p id="dynamic{{ dynamic.pk }}">
+                            {{ dynamic.text | safe }}
+{#                            <a class="pull-right" onclick="unfold(this, 'dynamic{{ dynamic.pk }}')">展开</a>#}
                         </p>
                     </div>
                 </li>

@@ -1,19 +1,39 @@
 {% extends 'form_base.html' %}
+{% load static %}
 
 {% block title %}树洞|新动态{% endblock %}
 {% block form-title %}新动态{% endblock %}
+{% block extend-jquery-file %}
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{% endblock %}
+
 {% block form %}
     <form method="POST" action="">
         {% csrf_token %}
-        <label>
-            <input type="hidden" name="owner" value="{{ request.user }}">
-        </label>
-        {% for dynamic_type in dynamic_types %}
-            <label><input name="dynamic_type" type="radio" value="{{ dynamic_type }}" />{{ dynamic_type }} </label>
-        {% endfor %}
-        <label>
-            <input type="text" name="text">
-        </label>
+        <p>
+            <label>
+                <input type="hidden" name="owner" value="{{ request.user }}">
+            </label>
+        </p>
+        <p>
+            <label for="id_dynamic_type">标签:
+                {% for dynamic_type in dynamic_types %}
+                    <input name="dynamic_type" checked type="radio" value="{{ dynamic_type.type_name }}"/>
+                    {{ dynamic_type.type_name }}
+                {% endfor %}
+            </label>
+        </p>
+        <p>
+            <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+            {{ form.text }} {{ form.text.errors.0 }}
+        </p>
+        <p>
+            <label for="id_dynamic_type">是否公开:
+                <input name="is_public" checked type="radio" value="True"/>公开
+                <input name="is_public" type="radio" value="False"/>私密
+            </label>
+        </p>
         <br/>
         <div class="clearfix"></div>
         <input type="submit" value="提交" class="btn btn-primary pull-right">
