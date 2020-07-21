@@ -7,9 +7,9 @@ div#unfold {
     font-size: 12px;
 }
 
-#example {
+p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 13px;
+    font-size: 10px;
 }

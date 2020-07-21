@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Dynamic, DynamicType
+from .models import Dynamic, DynamicType, MoodType
 
 
 @admin.register(Dynamic)
@@ -9,4 +9,9 @@ class DynamicAdmin(admin.ModelAdmin):
 
 @admin.register(DynamicType)
 class DynamicTypeAdmin(admin.ModelAdmin):
-    list_display = ('type_name', 'mood_type')
+    list_display = ('type_name', 'mood')
+
+
+@admin.register(MoodType)
+class MoodTypeAdmin(admin.ModelAdmin):
+    list_display = ('sort',)

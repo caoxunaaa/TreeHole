@@ -6,8 +6,11 @@
     <form method="POST" action="">
         {% csrf_token %}
         <label>
-            <input type="text" name="owner">
+            <input type="hidden" name="owner" value="{{ request.user }}">
         </label>
+        {% for dynamic_type in dynamic_types %}
+            <label><input name="dynamic_type" type="radio" value="{{ dynamic_type }}" />{{ dynamic_type }} </label>
+        {% endfor %}
         <label>
             <input type="text" name="text">
         </label>

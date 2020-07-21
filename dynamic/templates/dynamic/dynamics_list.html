@@ -3,14 +3,13 @@
 
 {% block title %}动态墙{% endblock %}
 {% block extend-jquery-file %}
-    <link rel="stylesheet" href="{% static 'dynamic/dynamics.css' %}">
     <link rel="stylesheet" href="{% static 'time-line/css/reset.css' %}"/>
     <link rel="stylesheet" href="{% static 'time-line/css/timeline.css' %}">
+    <link rel="stylesheet" href="{% static 'dynamic/dynamics.css' %}">
     <script src="{% static 'time-line/js/timeline.js' %}"></script>
 {% endblock %}
 
 {% block main-content %}
-
     <div class="container">
         <ul id="timeline" class="timeline">
             {% for dynamic in dynamic_list %}
@@ -22,12 +21,14 @@
                     </div>
                     <div class="thumb">
                         <img src="{% static 'time-line/images/pic/top1.jpg' %}" alt="">
-                        <span >{{ dynamic.update_time | date:"Y-m-d H:i:s" }}</span>
+                        <span>{{ dynamic.update_time | date:"Y-m-d H:i:s" }}</span>
                     </div>
                     <div class="content">
                         <b></b>
                         <h3>{{ dynamic.type.type_name }}{% block owner-delete %}{% endblock %}</h3>
-                        <p id="example">{{ dynamic.text }}</p>
+                        <p id="dynamic{{ dynamic.pk }}">{{ dynamic.text }}<a class="pull-right"
+                                                                             onclick="unfold(this, 'dynamic{{ dynamic.pk }}')">展开</a>
+                        </p>
                     </div>
                 </li>
             {% endfor %}
@@ -38,14 +39,14 @@
 {% block script-extend %}
     <script>
         $("#timeline li:first").addClass("active");
-        function unfold(obj) {
+
+        function unfold(obj, id) {
+            var ele = document.getElementById(id);
             if (obj.innerHTML === '展开') {
-                var ele = document.getElementById("example");
                 ele.style.cssText = "white-space: inherit";
                 obj.innerHTML = '收起';
             } else {
-                var ele = document.getElementById("example");
-                ele.style.cssText = "overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"
+                ele.style.cssText = "overflow: hidden;white-space: nowrap; text-overflow: ellipsis;"
                 obj.innerHTML = '展开';
             }
         }

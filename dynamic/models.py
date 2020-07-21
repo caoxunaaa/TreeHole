@@ -3,9 +3,16 @@ from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
 
+class MoodType(models.Model):
+    sort = models.CharField(verbose_name='心情类型', max_length=10, blank=True, null=True)
+
+    def __str__(self):
+        return self.sort
+
+
 class DynamicType(models.Model):
     type_name = models.CharField(verbose_name='类型名称', max_length=10, default='心情')
-    mood_type = models.CharField(verbose_name='心情类型', max_length=10, blank=True, null=True)
+    mood = models.ForeignKey(MoodType, verbose_name='心情类型', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.type_name

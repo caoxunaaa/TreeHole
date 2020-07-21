@@ -81,15 +81,11 @@ class DynamicCreate(CreateView):
         context['dynamic_types'] = DynamicType.objects.all()
         return context
 
-    def form_valid(self, form):
-        print(self.request)
-        if '?next=' not in self.request.GET.get('next', ''):
-            return redirect(self.request.GET.get('next', reverse('home')))
-        else:
-            return redirect(reverse('home'))
-
     def post(self, request, *args, **kwargs):
         print(request.POST)
+
+
+        # 判断有没有多重next
         if '?next=' not in self.request.POST.get('next', ''):
             return redirect(self.request.POST.get('next', reverse('home')))
         else:
