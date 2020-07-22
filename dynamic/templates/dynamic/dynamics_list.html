@@ -23,17 +23,52 @@
                         <img src="{% static 'time-line/images/pic/top1.jpg' %}" alt="">
                         <span>{{ dynamic.update_time | date:"Y-m-d H:i:s" }}</span>
                     </div>
-                    <div class="content">
+                    <div class="content" id="{{ dynamic.pk }}">
                         <b></b>
                         <h3>{{ dynamic.type.type_name }}{% block owner-delete %}{% endblock %}</h3>
                         <p id="dynamic{{ dynamic.pk }}">
                             {{ dynamic.text | safe }}
-{#                            <a class="pull-right" onclick="unfold(this, 'dynamic{{ dynamic.pk }}')">展开</a>#}
                         </p>
                     </div>
                 </li>
             {% endfor %}
         </ul>
+        <div class="paginator text-center">
+            <ul class="pagination">
+                {# 上一页 #}
+                <li>
+                    {% if page_of_dynamics.has_previous %}
+                        <a href="?page={{ page_of_dynamics.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% else %}
+                        <span aria-hidden="true">&laquo;</span>
+                    {% endif %}
+                </li>
+                {# 全部页码 #}
+                {% for page_num in page_range %}
+                    {% if page_num == page_of_dynamics.number %}
+                        <li class="active"><span>{{ page_num }}</span></li>
+                    {% else %}
+                        {% if page_num == '...' %}
+                            <li><span>{{ page_num }}</span></li>
+                        {% else %}
+                            <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {# 下一页 #}
+                <li>
+                    {% if page_of_dynamics.has_next %}
+                        <a href="?page={{ page_of_dynamics.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% else %}
+                        <span aria-hidden="true">&raquo;</span>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
     </div>
 {% endblock %}
 

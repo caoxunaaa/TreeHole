@@ -23,13 +23,14 @@ def paginator_handle(request, context):
     if page_range[-1] != paginator.num_pages:
         page_range.append(paginator.num_pages)
     context['page_range'] = page_range
+    context['page_of_dynamics'] = page_of_dynamics
     return context
 
 
 class DynamicsList(ListView):
     template_name = 'dynamic/dynamics_list.html'
     context_object_name = 'dynamic_list'
-    paginate_by = 5
+    paginate_by = 4
     allow_empty = True
 
     def get_queryset(self):
@@ -43,7 +44,7 @@ class DynamicsList(ListView):
 class MyDynamicsList(ListView):
     template_name = 'dynamic/my_dynamics_list.html'
     context_object_name = 'dynamic_list'
-    paginate_by = 5
+    paginate_by = 4
     allow_empty = True
 
     def get_queryset(self):

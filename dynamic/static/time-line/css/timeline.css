@@ -72,8 +72,8 @@
 	left: 234px;
 	top: 10px;
 	width: 730px;
-	border-left: 5px solid #41838E;
-	background: #fff;
+	border-left: 5px solid #41838e;
+	background: #ffffff;
 }
 
 .timeline .content h3{
@@ -98,11 +98,15 @@
 
 /* 高亮样式 */
 .timeline li.active {
-	height: 240px;
+	height: 100px;
 }
 
 .timeline li.active div {
 	position: absolute;
+}
+
+.timeline li.active div.content {
+	height: auto;
 }
 
 .timeline .active .check .spring {

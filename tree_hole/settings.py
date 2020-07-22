@@ -136,28 +136,22 @@ LOGIN_REDIRECT_URL = '/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CKEDITOR_UPLOAD_PATH = 'upload/'
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 CKEDITOR_CONFIGS = {
-    # 配置名是default时，django-ckeditor默认使用这个配置
     'default': {
-        # 使用简体中文
-        'language': 'zh-cn',
-        # 编辑器的宽高请根据你的页面自行设置
-        'width': 'auto',
-        'height': '150px',
-        'image_previewText': ' ',
-        'tabSpaces': 4,
-        'toolbar': 'Custom',
-        # 添加按钮在这里
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline', 'Format', 'RemoveFormat'],
+        'toolbar': 'custom',
+        'toolbar_custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ["TextColor", "BGColor", 'RemoveFormat'],
             ['NumberedList', 'BulletedList'],
-            ['Blockquote', 'CodeSnippet'],
             ['Image', 'Link', 'Unlink'],
-            ['Maximize']
+            ["Smiley", "SpecialChar", 'Blockquote'],
         ],
-        # 插件
-        'extraPlugins': ','.join(['codesnippet', 'uploadimage', 'widget', 'lineutils', ]),
+        'width': 'auto',
+        'height': '180',
+        'tabSpaces': 4,
+        'removePlugins': 'elementspath',
+        'resize_enabled': False,
     }
 }

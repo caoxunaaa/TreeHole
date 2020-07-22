@@ -23,7 +23,7 @@ class DynamicType(models.Model):
 
 class Dynamic(models.Model):
     owner = models.ForeignKey(User, verbose_name='发起人', on_delete=models.CASCADE)
-    text = RichTextUploadingField(verbose_name='正文')
+    text = RichTextUploadingField()
     type = models.ForeignKey(DynamicType, verbose_name='标签', on_delete=models.CASCADE, blank=True, null=True)
 
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
