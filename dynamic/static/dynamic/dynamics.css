@@ -7,15 +7,17 @@ div#unfold {
     font-size: 12px;
 }
 
-/*省略*/
-/*p {*/
-/*    overflow: hidden;*/
-/*    text-overflow: ellipsis;*/
-/*    white-space: nowrap;*/
-/*    font-size: 10px;*/
-/*}*/
 
 div.django-ckeditor-widget {
     display: inline-block;
     width: 100%;
+}
+
+body {
+    background-image: url("../time-line/img/demo-2-bg.jpg");
+    background-size: cover;
+}
+
+div.cntl-state:first-child {
+    margin-top: 15px;
 }
