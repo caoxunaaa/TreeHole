@@ -7,13 +7,6 @@ div#unfold {
     font-size: 12px;
 }
 
-/*省略*/
-/*p {*/
-/*    overflow: hidden;*/
-/*    text-overflow: ellipsis;*/
-/*    white-space: nowrap;*/
-/*    font-size: 10px;*/
-/*}*/
 
 div.django-ckeditor-widget {
     display: inline-block;

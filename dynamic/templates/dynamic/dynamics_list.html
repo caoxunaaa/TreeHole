@@ -3,79 +3,84 @@
 
 {% block title %}动态墙{% endblock %}
 {% block extend-jquery-file %}
-    <link rel="stylesheet" href="{% static 'time-line/css/reset.css' %}"/>
-    <link rel="stylesheet" href="{% static 'time-line/css/timeline.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'time-line/css/cntl.css' %}"/>
     <link rel="stylesheet" href="{% static 'dynamic/dynamics.css' %}">
-    <script src="{% static 'time-line/js/timeline.js' %}"></script>
 {% endblock %}
 
 {% block main-content %}
-    <div class="container">
-        <ul id="timeline" class="timeline">
-            {% for dynamic in dynamic_list %}
-                <li>
-                    <div class="check">
-                        <b class="spring"></b>
-                        <s></s>
-                        <b class="line"></b>
+    <div class="jq22-container">
+        <div class="cntl">
+			<span class="cntl-bar cntl-center">
+				<span class="cntl-bar-fill"></span>
+			</span>
+            <div class="cntl-states">
+                {% for dynamic in dynamic_list %}
+                    <div class="cntl-state">
+                        <div class="cntl-content">
+                            <h4>{{ dynamic.type.type_name }}{% block owner-delete %}{% endblock %}</h4>
+                            <p>{{ dynamic.text | safe }}</p>
+                        </div>
+                        <div class="cntl-image"><img src="img/a1.png"></div>
+                        <div class="cntl-icon cntl-center">{{ dynamic.update_time|date:"Y-m-d" }}</div>
                     </div>
-                    <div class="thumb">
-                        <img src="{% static 'time-line/images/pic/top1.jpg' %}" alt="">
-                        <span>{{ dynamic.update_time | date:"Y-m-d H:i:s" }}</span>
-                    </div>
-                    <div class="content" id="{{ dynamic.pk }}">
-                        <b></b>
-                        <h3>{{ dynamic.type.type_name }}{% block owner-delete %}{% endblock %}</h3>
-                        <p id="dynamic{{ dynamic.pk }}">
-                            {{ dynamic.text | safe }}
-                        </p>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-        <div class="paginator text-center">
-            <ul class="pagination">
-                {# 上一页 #}
-                <li>
-                    {% if page_of_dynamics.has_previous %}
-                        <a href="?page={{ page_of_dynamics.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    {% else %}
-                        <span aria-hidden="true">&laquo;</span>
-                    {% endif %}
-                </li>
-                {# 全部页码 #}
-                {% for page_num in page_range %}
-                    {% if page_num == page_of_dynamics.number %}
-                        <li class="active"><span>{{ page_num }}</span></li>
-                    {% else %}
-                        {% if page_num == '...' %}
-                            <li><span>{{ page_num }}</span></li>
-                        {% else %}
-                            <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
-                        {% endif %}
-                    {% endif %}
                 {% endfor %}
-                {# 下一页 #}
-                <li>
-                    {% if page_of_dynamics.has_next %}
-                        <a href="?page={{ page_of_dynamics.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    {% else %}
-                        <span aria-hidden="true">&raquo;</span>
-                    {% endif %}
-                </li>
-            </ul>
+            </div>
         </div>
+
+    </div>
+    <div class="paginator text-center">
+        <ul class="pagination">
+            {# 上一页 #}
+            <li>
+                {% if page_of_dynamics.has_previous %}
+                    <a href="?page={{ page_of_dynamics.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                {% else %}
+                    <span aria-hidden="true">&laquo;</span>
+                {% endif %}
+            </li>
+            {# 全部页码 #}
+            {% for page_num in page_range %}
+                {% if page_num == page_of_dynamics.number %}
+                    <li class="active"><span>{{ page_num }}</span></li>
+                {% else %}
+                    {% if page_num == '...' %}
+                        <li><span>{{ page_num }}</span></li>
+                    {% else %}
+                        <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {# 下一页 #}
+            <li>
+                {% if page_of_dynamics.has_next %}
+                    <a href="?page={{ page_of_dynamics.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                {% else %}
+                    <span aria-hidden="true">&raquo;</span>
+                {% endif %}
+            </li>
+        </ul>
     </div>
 {% endblock %}
 
 {% block script-extend %}
+    <script type="text/javascript" src="{% static 'time-line/js/jquery.cntl.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('.cntl').cntl({
+                revealbefore: 300,
+                anim_class: 'cntl-animate',
+                onreveal: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+    </script>
     <script>
-        $("#timeline li:first").addClass("active");
-
         function unfold(obj, id) {
             var ele = document.getElementById(id);
             if (obj.innerHTML === '展开') {
