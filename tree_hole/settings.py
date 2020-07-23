@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'dynamic',
     'user',
+    'comment',
 ]
 
 MIDDLEWARE = [
