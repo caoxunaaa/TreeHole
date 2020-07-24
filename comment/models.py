@@ -12,6 +12,6 @@ class Comment(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     user = models.ForeignKey(User, verbose_name='评论人', on_delete=models.CASCADE)
-    text = RichTextUploadingField(verbose_name='评论内容')
+    text = models.TextField()
 
     comment_time = models.DateTimeField(verbose_name='评论时间', auto_now_add=True)

@@ -1,3 +1,20 @@
-from django.shortcuts import render
+from django.views.generic import CreateView
+from .forms import CommentCreateForm
+from .models import Comment
+from django.http import JsonResponse
 
-# Create your views here.
+
+class CommentCreateView(CreateView):
+    form_class = CommentCreateForm
+    model = Comment
+
+    def form_valid(self, form):
+        print(self.request.POST)
+        user = self.request.user
+        # content_type = form.cleaned_data['content_object']
+        # object_id = form.cleaned_data['object_id']
+        # text = form.cleaned_data['text']
+        # comment = Comment.objects.create(user=user, )
+        data = dict()
+        data['text'] = 'text'
+        return JsonResponse(data)

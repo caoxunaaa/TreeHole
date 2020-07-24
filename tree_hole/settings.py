@@ -154,5 +154,19 @@ CKEDITOR_CONFIGS = {
         'tabSpaces': 4,
         'removePlugins': 'elementspath',
         'resize_enabled': False,
+    },
+    'comment_ckedior': {
+        'toolbar': 'custom',
+        'toolbar_custom': [
+            ['Bold', 'Italic', 'Subscript', 'Superscript'],
+            ["TextColor"],
+            ['Image', 'Link', 'Unlink'],
+            ["Smiley", "SpecialChar", 'Blockquote'],
+        ],
+        'width': 'auto',
+        'height': '100',
+        'tabSpaces': 4,
+        'removePlugins': 'elementspath',
+        'resize_enabled': False,
     }
 }

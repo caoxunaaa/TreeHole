@@ -82,12 +82,11 @@ class DynamicCreate(CreateView):
         context['dynamic_types'] = DynamicType.objects.values("type_name").distinct()
         return context
 
-    def post(self, request, *args, **kwargs):
-        print(request.POST)
+    def form_valid(self, form):
         if self.request.user.is_authenticated:
             user = self.request.user
             type = self.request.POST.get('dynamic_type', '')
-            text = self.request.POST.get('text', '')
+            text = form.cleaned_data['text']
             is_public = self.request.POST.get('is_public', '')
 
             dynamic = Dynamic()
