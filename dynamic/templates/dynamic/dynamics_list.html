@@ -48,15 +48,25 @@
                                 &nbsp;&nbsp;
                                 <button type="button" class="btn btn-xs" aria-label="Left Align"
                                         style="background: antiquewhite;"
-                                        onclick="comment(this, {{ dynamic.pk }}, {% get_content_type dynamic %})">
+                                        onclick="comment(this, {{ dynamic.pk }})">
                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                 </button>
                             </div>
                             <br>
-                            <div id="comment-input">
-                            <form>
-                                <textarea name="content" >KindEditor</textarea>
-                            </form>
+                            <div id="comment-input_{{ dynamic.pk }}" class="hidden">
+                                <form id="comment_form_{{ dynamic.pk }}" action="{% url 'create_comment' %}"
+                                      method="POST" onsubmit="return comment_submit({{ dynamic.pk }})">
+                                    {% csrf_token %}
+                                    {% get_comments_form dynamic as comment_form %}
+                                    {% for field in comment_form %}
+                                        {{ field }}
+                                    {% endfor %}
+                                    <textarea name="content" id="text"
+                                              style="width:100%;height:120px;visibility:hidden; "></textarea>
+                                    <br>
+                                    <span id="comment_error" class="text-danger pull-left"></span>
+                                    <input type="submit" value="评论" class="btn btn-primary pull-right">
+                                </form>
                             </div>
                             <br>
                             <div class="comments-content">
@@ -71,16 +81,6 @@
                         <div class="cntl-icon cntl-center">{{ dynamic.update_time|date:"Y-m-d" }}</div>
                     </div>
                 {% endfor %}
-                {#                <div id="comment-input" class="hidden">#}
-                {#                    <form action="{% url 'create_comment' %}" method="post">#}
-                {#                        {% csrf_token %}#}
-                {#                        {% get_comments_form dynamic as comment_form %}#}
-                {#                        {% for field in comment_form %}#}
-                {#                            {{ field }}#}
-                {#                        {% endfor %}#}
-                {#                        <input type="submit" value="评论" class="btn btn-primary pull-right">#}
-                {#                    </form>#}
-                {#                </div>#}
             </div>
         </div>
 
@@ -149,10 +149,40 @@
         }
     </script>
     <script type="text/javascript">
-        function comment(obj, dynamic_id, content_type) {
-            console.log(obj.parentNode);
-            document.getElementById("comment-input").style.cssText = 'padding-top: 10px;padding-bottom: 10px;'
-            document.getElementById("comment-input").className = ""
+        function comment(obj, dynamic_id) {
+            const comment_input = document.getElementById("comment-input_" + dynamic_id);
+            if (comment_input.className === 'hidden') {
+                comment_input.className = ''
+                comment_input.style.cssText = 'padding-top: 10px;padding-bottom: 10px;'
+            } else {
+                comment_input.className = 'hidden'
+            }
+            console.log($("#comment-input_" + dynamic_id).find('iframe').contents().find("body").html())
+            console.log($("iframe").contents().find("body").html());
         }
+
+        function comment_submit(id){
+                $.ajax({
+                    url: "{% url 'create_comment' %}",
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    cache: false,
+                    success: function (data) {
+                        console.log($(this).serialize());
+                        console.log(this);
+                        if (data['status'] === 'SUCCESS') {
+                            const pk= data['object_id']
+                            console.log(pk)
+                            $("#comment_error").text('评论内容完成');
+                        } else {
+                            $("#comment_error").text('评论内容错误');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log(xhr);
+                    }
+                });
+                return false;
+            }
     </script>
 {% endblock %}

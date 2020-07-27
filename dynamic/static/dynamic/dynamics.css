@@ -22,9 +22,7 @@ div.cntl-state:first-child {
     margin-top: 15px;
 }
 
-textarea {
-    width: 100%;
-    height: 120px;
-    visibility:hidden;
+div#comment-input {
+    margin-top: 5px;
 }
 

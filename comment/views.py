@@ -12,9 +12,10 @@ class CommentCreateView(CreateView):
         print(self.request.POST)
         user = self.request.user
         # content_type = form.cleaned_data['content_object']
-        # object_id = form.cleaned_data['object_id']
+        object_id = form.cleaned_data['object_id']
         # text = form.cleaned_data['text']
         # comment = Comment.objects.create(user=user, )
         data = dict()
-        data['text'] = 'text'
+        data['status'] = 'SUCCESS'
+        data['object_id'] = object_id
         return JsonResponse(data)

@@ -7,11 +7,10 @@ from django.contrib.contenttypes.models import ContentType
 class CommentCreateForm(forms.ModelForm):
     content_type = forms.CharField(widget=forms.HiddenInput())
     object_id = forms.IntegerField(widget=forms.HiddenInput())
-    text = forms.CharField(widget=forms.Textarea())
 
     class Meta:
         model = Comment
-        fields = ['content_type', 'object_id', 'text']
+        fields = ['content_type', 'object_id']
 
     def clean(self):
         content_type = self.cleaned_data['content_type']
@@ -23,5 +22,4 @@ class CommentCreateForm(forms.ModelForm):
             self.cleaned_data['content_object'] = model_obj
         except:
             print('no exists')
-
         return self.cleaned_data
