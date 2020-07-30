@@ -503,6 +503,7 @@
 }
 /* statusbar */
 .ke-statusbar {
+	display: none;
 	position: relative;
 	background-color: #F0F0EE;
 	border-top: 1px solid #CCCCCC;

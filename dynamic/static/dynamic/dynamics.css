@@ -26,3 +26,10 @@ div#comment-input {
     margin-top: 5px;
 }
 
+form .ke-container {
+    margin: 0 auto;
+}
+
+form {
+    margin: 0;
+}

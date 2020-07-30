@@ -973,7 +973,7 @@
             document.getElementsByTagName("head")[0] || (O ? document.body : document.documentElement), c = document.createElement("link"), d = Db(ia(a, "absolute")), e = f('link[rel="stylesheet"]', b), g = 0, h = e.length; g < h; g++) if (Db(ia(e[g].href, "absolute")) === d) return;
         b.appendChild(c);
         c.href = a;
-        c.rel = "stylesheet"
+        // c.rel = "stylesheet"
     }
 
     function Eb(a, b) {
@@ -1303,7 +1303,7 @@
             indentChar: "\t",
             cssPath: "",
             cssData: "",
-            minHeight: 100,
+            minHeight: 60,
             minChangeSize: 50,
             zIndex: 811213,
             items: ["source", "|", "undo", "redo", "|", "preview", "print", "template", "code", "cut", "copy", "paste", "plainpaste", "wordpaste", "|", "justifyleft", "justifycenter", "justifyright", "justifyfull", "insertorderedlist", "insertunorderedlist", "indent", "outdent", "subscript", "superscript", "clearhtml", "quickformat", "selectall", "|", "fullscreen", "/", "formatblock",

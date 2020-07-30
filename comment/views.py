@@ -11,9 +11,9 @@ class CommentCreateView(CreateView):
     def form_valid(self, form):
         print(self.request.POST)
         user = self.request.user
-        # content_type = form.cleaned_data['content_object']
+        content_type = form.cleaned_data['content_object']
         object_id = form.cleaned_data['object_id']
-        # text = form.cleaned_data['text']
+        # content = form.cleaned_data['c']
         # comment = Comment.objects.create(user=user, )
         data = dict()
         data['status'] = 'SUCCESS'
