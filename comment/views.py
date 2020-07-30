@@ -9,13 +9,13 @@ class CommentCreateView(CreateView):
     model = Comment
 
     def form_valid(self, form):
-        print(self.request.POST)
-        user = self.request.user
-        content_type = form.cleaned_data['content_object']
         object_id = form.cleaned_data['object_id']
-        # content = form.cleaned_data['c']
-        # comment = Comment.objects.create(user=user, )
+        comment = Comment()
+        comment.user = self.request.user
+        comment.content_object = form.cleaned_data['content_object']
+        comment.text = self.request.POST.get('content', '')
+        comment.save()
+
         data = dict()
         data['status'] = 'SUCCESS'
-        data['object_id'] = object_id
         return JsonResponse(data)
