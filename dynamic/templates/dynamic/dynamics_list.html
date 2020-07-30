@@ -47,12 +47,12 @@
                                 &nbsp;&nbsp;
                                 <button type="button" class="btn btn-xs" aria-label="Left Align"
                                         style="background: antiquewhite;"
-                                        onclick="comment(this, {{ dynamic.pk }})">
+                                        onclick="comment(this)">
                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                 </button>
                             </div>
                             <br>
-                            <div class="comment-input" style="display: block;padding-top: 10px;padding-bottom: 10px;">
+                            <div class="comment-input" style="display: none;padding-top: 10px;padding-bottom: 10px;">
                                 <form action="{% url 'create_comment' %}" method="POST"
                                       onsubmit="return comment_submit(this, {{ dynamic.pk }})">
                                     {% csrf_token %}
@@ -137,17 +137,43 @@
     </script>
 
     <script type="text/javascript">
-        function comment(obj, dynamic_id) {
-            var comment_input = $(".comment-input");
+        function comment(obj) {
+            console.log($(obj).parent().nextAll("div.comment-input"))
+
+            var comment_input = $(obj).parent().nextAll("div.comment-input");
             if (comment_input.css('display') === 'block') {
                 comment_input.css('display', 'none');
             } else {
                 comment_input.css('display', 'block');
             }
         }
-        new Vue({
-
-        })
-
     </script>
+    <script type="text/javascript">
+        function comment_submit(obj){
+                //更新editor中的数据到textarea中
+                $(obj).children("textarea").val($(obj).find("iframe").contents().find("body").html());
+
+                $.ajax({
+                    url: "{% url 'create_comment' %}",
+                    type: 'POST',
+                    data: $(obj).serialize(),
+                    cache: false,
+                    success: function (data) {
+                        console.log($(obj).serialize());
+                        if (data['status'] === 'SUCCESS') {
+                            const pk= data['object_id']
+                            console.log(pk)
+                            $(obj).children("span#comment_error").text('评论内容完成');
+                        } else {
+                            $(obj).children("span#comment_error").text('评论内容失败');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log(xhr);
+                    }
+                });
+                return false;
+            }
+    </script>
+
 {% endblock %}
