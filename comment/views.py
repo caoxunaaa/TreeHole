@@ -17,5 +17,7 @@ class CommentCreateView(CreateView):
         comment.save()
 
         data = dict()
+        data['username'] = comment.user.username
+        data['text'] = comment.text
         data['status'] = 'SUCCESS'
         return JsonResponse(data)

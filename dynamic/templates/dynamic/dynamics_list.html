@@ -152,7 +152,6 @@
         function comment_submit(obj){
                 //更新editor中的数据到textarea中
                 $(obj).children("textarea").val($(obj).find("iframe").contents().find("body").html());
-
                 $.ajax({
                     url: "{% url 'create_comment' %}",
                     type: 'POST',
@@ -161,9 +160,13 @@
                     success: function (data) {
                         console.log($(obj).serialize());
                         if (data['status'] === 'SUCCESS') {
-                            const pk= data['object_id']
-                            console.log(pk)
+                            let pk= data['object_id'];
+                            console.log(pk);
+                            var comment_html ='<li>'+data['username']+ ': ' +data['text']  +'</li>';
+                            $(obj).parent().parent().children("div.comments-content").prepend(comment_html);
+
                             $(obj).children("span#comment_error").text('评论内容完成');
+                            $(obj).find("iframe").contents().find("body").empty();
                         } else {
                             $(obj).children("span#comment_error").text('评论内容失败');
                         }
