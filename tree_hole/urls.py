@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('ckeditor', include('ckeditor_uploader.urls')),
+    path('api-auth', include('rest_framework.urls')),
     path('dynamic/', include('dynamic.urls')),
     path('user/', include('user.urls')),
     path('comment/', include('comment.urls')),

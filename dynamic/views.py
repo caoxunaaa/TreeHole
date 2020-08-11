@@ -3,8 +3,6 @@ from django.views import View
 from .models import Dynamic, DynamicType
 from django.shortcuts import redirect, reverse
 from .forms import DynamicCreateForm
-from django.contrib.auth.models import User
-
 
 def paginator_handle(request, context):
     paginator = context['paginator']
